@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalkulator Bilangan Biner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: white;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #2d2d44;
+      padding: 20px;
+      border-radius: 15px;
+    }
+    h2 { text-align: center; }
+    label, select, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    input, select {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #a855f7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #1b1b2e;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Kalkulator Bilangan</h2>
+
+    <label for="angka1">Angka Pertama (Biner)</label>
+    <input type="text" id="angka1" placeholder="Misal: 1100" />
+
+    <label for="operator">Operator</label>
+    <select id="operator">
+      <option value="+">Tambah (+)</option>
+      <option value="-">Kurang (-)</option>
+      <option value="">Kali ()</option>
+      <option value="/">Bagi (/)</option>
+    </select>
+
+    <label for="angka2">Angka Kedua (Biner)</label>
+    <input type="text" id="angka2" placeholder="Misal: 0110" />
+
+    <label for="basis">Basis Bilangan</label>
+    <select id="basis">
+      <option value="2">Biner</option>
+      <option value="10">Desimal</option>
+      <option value="8">Oktal</option>
+      <option value="16">Hexadesimal</option>
+    </select>
+
+    <button onclick="hitung()">Hitung</button>
+
+    <div class="result">
+      <p><strong>Desimal:</strong> <span id="resDesimal">-</span></p>
+      <p><strong>Biner:</strong> <span id="resBiner">-</span></p>
+      <p><strong>Oktal:</strong> <span id="resOktal">-</span></p>
+      <p><strong>Hexadesimal:</strong> <span id="resHex">-</span></p>
+    </div>
+  </div>
+
+  <script>
+    function hitung() {
+      const angka1 = document.getElementById('angka1').value;
+      const angka2 = document.getElementById('angka2').value;
+      const operator = document.getElementById('operator').value;
+      const basis = parseInt(document.getElementById('basis').value);
+
+      let val1 = parseInt(angka1, basis);
+      let val2 = parseInt(angka2, basis);
+      let hasil = 0;
+
+      if (isNaN(val1) || isNaN(val2)) {
+        alert("Masukkan angka yang valid sesuai basis!");
+        return;
+      }
+
+      switch (operator) {
+        case '+': hasil = val1 + val2; break;
+        case '-': hasil = val1 - val2; break;
+        case '*': hasil = val1 * val2; break;
+        case '/': 
+          if (val2 === 0) {
+            alert("Tidak bisa dibagi 0");
+            return;
+          }
+          hasil = val1 / val2;
+          break;
+      }
+
+      document.getElementById("resDesimal").textContent = hasil;
+      document.getElementById("resBiner").textContent = Math.floor(hasil).toString(2);
+      document.getElementById("resOktal").textContent = Math.floor(hasil).toString(8);
+      document.getElementById("resHex").textContent = Math.floor(hasil).toString(16).toUpperCase();
+    }
+  </script>
+</body>
+</html>
